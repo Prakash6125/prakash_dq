@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="a1a7b3d4-294a-4cce-b448-e70f783a54ff" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="prakash_dqFlow" doc:id="e77d31de-64b2-4027-9182-c82d623641e6" >
+		<http:listener doc:name="Listener" doc:id="ea8c5ff1-e7ce-49f0-b61b-514f466e5bdc" config-ref="HTTP_Listener_config" path="/prakash"/>
+		<logger level="INFO" doc:name="Logger" doc:id="02af777a-0a27-445c-acb0-b8ebda2241ee" message="request received"/>
+		<ee:transform doc:name="Transform Message" doc:id="664f02f1-f2a2-4ed0-a47c-72a32bc6fea1" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"project": " project is new one working one"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
